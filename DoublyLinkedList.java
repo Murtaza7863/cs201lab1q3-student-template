@@ -115,28 +115,20 @@ public class DoublyLinkedList<E> {
     }
 
     public void group() {
-        Node<E> insertPoint = header;
-        Node<E> current = header.getNext();
+        int n = size();
+        int nullCount = 0;
 
-        while (current != trailer) {
-            Node<E> next = current.getNext();
-
-            if (current.getElement() == null) {
-                Node<E> prev = current.getPrev();
-                Node<E> after = current.getNext();
-                prev.setNext(after);
-                after.setPrev(prev);
-
-                Node<E> afterInsert = insertPoint.getNext();
-                insertPoint.setNext(current);
-                current.setPrev(insertPoint);
-                current.setNext(afterInsert);
-                afterInsert.setPrev(current);
-
-                insertPoint = current;
+        for (int i = 0; i < n; i++) {
+            E value = removeFirst();
+            if (value == null) {
+                nullCount++;
+            } else {
+                addLast(value);
             }
+        }
 
-            current = next;
+        for (int i = 0; i < nullCount; i++) {
+            addFirst(null);
         }
     }
 }
