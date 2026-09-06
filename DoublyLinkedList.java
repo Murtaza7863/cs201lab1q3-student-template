@@ -114,21 +114,24 @@ public class DoublyLinkedList<E> {
         return sb.toString();
     }
 
-    public void group() {
-        int n = size();
-        int nullCount = 0;
+    public void group(){
+        int remaining = size;
+        int nullsSeen = 0;
 
-        for (int i = 0; i < n; i++) {
-            E value = removeFirst();
-            if (value == null) {
-                nullCount++;
+        while (remaining > 0) {
+            E item = removeFirst();
+            remaining--;
+
+            if (item == null) {
+                nullsSeen++;
             } else {
-                addLast(value);
+                addLast(item);
             }
         }
 
-        for (int i = 0; i < nullCount; i++) {
+        while (nullsSeen > 0) {
             addFirst(null);
+            nullsSeen--;
         }
     }
 }
