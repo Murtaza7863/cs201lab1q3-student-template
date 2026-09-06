@@ -114,27 +114,15 @@ public class DoublyLinkedList<E> {
         return sb.toString();
     }
 
-    public void group() {
-        Node<E> lastNull = header;
+    public void group(){
         Node<E> current = header.getNext();
 
         while (current != trailer) {
             Node<E> nextNode = current.getNext();
 
             if (current.getElement() == null) {
-                if (current.getPrev() != lastNull) {
-                    Node<E> predecessor = current.getPrev();
-                    Node<E> successor = current.getNext();
-                    predecessor.setNext(successor);
-                    successor.setPrev(predecessor);
-
-                    Node<E> afterLastNull = lastNull.getNext();
-                    lastNull.setNext(current);
-                    current.setPrev(lastNull);
-                    current.setNext(afterLastNull);
-                    afterLastNull.setPrev(current);
-                }
-                lastNull = current;
+                remove(current);
+                addFirst(null);
             }
 
             current = nextNode;
